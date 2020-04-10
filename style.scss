@@ -56,3 +56,36 @@ pentagon;
 /**********************************************
  * YOUR CODE BELOW
  **********************************************/
+
+
+
+
+@mixin shapeColor ($shape, $color) {
+  @if ($shape=='square') {
+    @extend %square;
+    background-color: $color;
+  }
+
+  @else if ($shape=='circle') {
+    @extend %circle;
+    background-color: $color;
+  }
+
+  @else if ($shape=='pentagon') {
+    @extend %pentagon;
+    border-color: $color transparent;
+
+    &::before {
+      border-color: transparent transparent $color;
+    }
+  }
+}
+
+@each $shape in $shapes {
+  @each $color in $colors {
+
+    .#{$shape}-#{$color} {
+      @include shapeColor($shape, $color)
+    }
+  }
+}
